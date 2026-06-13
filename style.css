@@ -190,7 +190,10 @@ tr.col-hints + tr:not(.col-hints) .cell {
     background-color: #bae6fd !important; 
 }
 
-.invalid { 
-    border: 2px solid #ef4444 !important;
+/* Add this to the very bottom of your style.css */
+table.nono-table td.cell.invalid {
     background-color: #fee2e2 !important;
+    border: 2px solid #ef4444 !important;
+    position: relative;
+    z-index: 10;
 }
