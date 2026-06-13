@@ -1,0 +1,161 @@
+/* ==========================================
+   1. BASE LAYOUT & TYPOGRAPHY
+   ========================================== */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 30px; 
+    background: #f8fafc; 
+    color: #1e293b; 
+}
+
+h1 { 
+    margin-bottom: 20px; 
+    color: #0f172a; 
+}
+
+textarea { 
+    width: 100%; 
+    max-width: 600px; 
+    height: 140px; 
+    margin-bottom: 20px; 
+    padding: 12px; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 8px; 
+    font-family: monospace; 
+    font-size: 14px;
+    background: white;
+    resize: vertical;
+}
+
+.controls { 
+    margin-bottom: 30px; 
+}
+
+button { 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border: none; 
+    border-radius: 6px; 
+    background: #3b82f6; 
+    color: white; 
+    font-weight: 600; 
+    margin: 0 5px; 
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+/* ==========================================
+   2. PERFECT SQUARED TABLE LAYOUT
+   ========================================== */
+.nono-table {
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    table-layout: fixed;
+}
+
+/* Hard structural constraints for pristine squares */
+.nono-table th, .nono-table td {
+    width: 34px;
+    height: 34px;
+    max-width: 34px;
+    max-height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    box-sizing: border-box;
+    padding: 0;
+    
+    /* Native table centering rules */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.nono-table tr {
+    height: 34px;
+}
+
+/* ==========================================
+   3. HINT CELL SPECIFIC STYLES
+   ========================================== */
+.col-hint-cell, .row-hint-cell {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    font-size: 15px;       /* Enlarged text */
+    font-weight: bold;
+    color: #475569;
+}
+
+/* Visual treatment for empty placeholder cells */
+.empty-hint {
+    background: #f8fafc;
+    border: 1px dashed #e2e8f0;
+}
+
+.empty-corner {
+    background: transparent;
+    border: none !important;
+}
+
+/* ==========================================
+   4. INTERACTIVE GRID CELLS & OUTLINES
+   ========================================== */
+.cell { 
+    border: 1px solid #cbd5e1; 
+}
+
+/* Thick boundaries around the board grid */
+.cell:first-of-type { border-left: 2px solid #0f172a; }
+.cell:last-of-type { border-right: 2px solid #0f172a; }
+
+/* Thick bottom board outline */
+tr:last-child .cell { border-bottom: 2px solid #0f172a; }
+
+/* UPDATED: Dotted border between column hints and the board */
+.col-hint-cell { border-bottom: 1px dashed #cbd5e1; }
+
+/* FIXED: Target the first row after your custom JS marker class */
+tr.col-hints + tr:not(.col-hints) .cell {
+    border-top: 2px solid #0f172a;
+}
+
+/* ==========================================
+   5. GAME STATES & LOGIC HIGHLIGHTS
+   ========================================== */
+.val-1 { 
+    background: #0f172a; 
+}
+
+.val-0 { 
+    background: #f8fafc; 
+    position: relative;
+}
+
+.val-0::before { 
+    content: "×"; 
+    color: #cbd5e1; 
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.highlight-row td.cell { 
+    background-color: #fef08a !important; 
+}
+
+.highlight-col-cell { 
+    background-color: #bae6fd !important; 
+}
+
+.invalid { 
+    border: 2px solid #ef4444 !important;
+    background-color: #fee2e2 !important;
+}

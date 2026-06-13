@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nonogram Logic Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Nonogram Logic Helper</h1>
+    
+    <textarea id="jsonInput">
+{
+  "columnHints": [[4], [3], [2, 1], [1], [2]],
+  "rowHints": [[3], [1, 1, 1], [2], [3], [2]],
+  "cells": [
+    [-1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1]
+  ]
+}</textarea>
+    
+    <div class="controls">
+        <button onclick="loadBoard()">Load Board</button>
+        <button onclick="validateBoard()">Validate</button>
+        <button onclick="getHint('row')">Hint Row</button>
+        <button onclick="getHint('col')">Hint Col</button>
+    </div>
+
+    <div id="board"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
