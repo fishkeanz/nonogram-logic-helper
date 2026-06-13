@@ -51,6 +51,41 @@ button:hover {
 }
 
 /* ==========================================
+   1b. SNIPPET COPIER UTILITIES
+   ========================================== */
+.snippet-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    width: 100%;
+    max-width: 600px;
+    justify-content: flex-start;
+}
+
+.snippet-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    background: #475569; /* Slate gray accent so it doesn't compete with the primary blue buttons */
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+}
+
+.snippet-btn:hover {
+    background: #334155;
+}
+
+.snippet-btn-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border-radius: 2px;
+}
+
+/* ==========================================
    2. PERFECT SQUARED TABLE LAYOUT
    ========================================== */
 .nono-table {

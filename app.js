@@ -93,5 +93,81 @@ function renderPerfectTable() {
 function validateBoard() { alert("Logic coming soon!"); }
 function getHint(type) { alert("Logic coming soon!"); }
 
-// Auto-load the board when the page finishes loading
-document.addEventListener('DOMContentLoaded', loadBoard);
+// ==========================================
+// SITE SNIPPETS CONFIGURATION
+// ==========================================
+const snippetSites = [
+  { 
+    name: 'puzzle-nonogram',
+    image: 'https://www.puzzle-nonograms.com/art/ico/puzzle-nonograms.ico',
+    // We wrap the snippet string cleanly. Notice the escaped quotes where necessary.
+    snippet: `JSON.stringify({
+  columnHints: Array.from(document.querySelectorAll('#game #taskTop .task-group')).map(hints => 
+    Array.from(hints.querySelectorAll('div.task-cell')).flatMap(hint => !!hint.innerText ? [parseInt(hint.innerText, 10)] : [])
+  ),
+  rowHints: Array.from(document.querySelectorAll('#game #taskLeft .task-group')).map(hints => 
+    Array.from(hints.querySelectorAll('div.task-cell')).flatMap(hint => !!hint.innerText ? [parseInt(hint.innerText, 10)] : [])
+  ),
+  cells: Array.from(document.querySelectorAll('#game .nonograms-cell-back div.row')).map(row =>
+    Array.from(row.querySelectorAll('.cell')).map(cell =>
+        cell.classList.contains('cell-on') ? 1 :
+          cell.classList.contains('cell-x') ? 0 :
+          cell.classList.contains('cell-off') ? -1 :
+          -2
+    )
+  )
+});`
+  }
+  // Future sites can be appended directly right here!
+];
+
+function renderSnippetButtons() {
+    const container = document.getElementById('snippet-buttons-container');
+    if (!container) return;
+
+    snippetSites.forEach(site => {
+        // Create the button element
+        const btn = document.createElement('button');
+        btn.className = 'snippet-btn';
+        btn.title = `Copy extraction snippet for ${site.name}`;
+        
+        // Create the icon image element
+        const img = document.createElement('img');
+        img.src = site.image;
+        img.alt = site.name;
+        img.className = 'snippet-btn-icon';
+
+        // Assemble button text/icon
+        btn.appendChild(img);
+        btn.appendChild(document.createTextNode(site.name));
+
+        // Clipboard Copy functionality
+        btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(site.snippet)
+                .then(() => {
+                    const originalText = btn.innerHTML;
+                    btn.innerText = 'Copied!';
+                    btn.style.background = '#10b981'; // Feedback green
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = '';
+                        btn.appendChild(img);
+                        btn.appendChild(document.createTextNode(` Copy ${site.name} Snippet`));
+                        btn.style.background = ''; // Revert style
+                    }, 1500);
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    alert('Failed to copy snippet automatically.');
+                });
+        });
+
+        container.appendChild(btn);
+    });
+}
+
+// MODIFY your existing DOMContentLoaded listener at the very bottom of app.js:
+document.addEventListener('DOMContentLoaded', () => {
+    renderSnippetButtons(); // Initialize your new buttons
+    loadBoard();            // Auto-loads the board layout as before
+});
