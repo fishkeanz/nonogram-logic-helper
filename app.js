@@ -112,10 +112,67 @@ function validateBoard() {
     }
 }
 
-function getHint() {
-    // For this implementation, getHint can mirror the single-cell alert cleanly
-    validateBoard();
+/**
+ * Generic handler for hints
+ * @param {string} mode - 'row' or 'col'
+ */
+function requestHint(mode) {
+    // 1. Clear previous hints
+    document.querySelectorAll('.cell.hint-highlight').forEach(el => {
+        el.classList.remove('hint-highlight');
+    });
+
+    // 2. Ask the engine for a deduction
+    const hint = NonogramEngine.getHint(currentData);
+
+    if (!hint) {
+        console.log("No logical deduction possible for this move.");
+        return;
+    }
+
+    // 3. Log the "nudge" to console instead of alert
+    console.log(`Hint found: Cell at R${hint.row + 1}, C${hint.col + 1} must be ${hint.value === 1 ? 'Black' : 'White'}.`);
+
+    // 4. Highlight the line based on the mode requested
+    if (mode === 'row') {
+        // Find every cell sharing the matching row index
+        const rowCells = document.querySelectorAll(`.cell[data-r="${hint.row}"]`);
+        rowCells.forEach(cell => {
+            cell.classList.add('hint-highlight');
+        });
+    } else if (mode === 'col') {
+        // Highlight every cell that has the matching data-c attribute
+        const colCells = document.querySelectorAll(`.cell[data-c="${hint.col}"]`);
+        colCells.forEach(cell => {
+            cell.classList.add('hint-highlight');
+        });
+    }
 }
+/*
+function getHint() {
+    // 1. Clean up any previous validation errors or hints from the view
+    document.querySelectorAll('.cell.invalid, .cell.hint-highlight').forEach(el => {
+        el.classList.remove('invalid', 'hint-highlight');
+    });
+
+    // 2. Query the engine for a deduction
+    const hint = NonogramEngine.getHint(currentData);
+    
+    if (!hint) {
+        alert("No logical deduction possible for this move. You might need to guess!");
+        return;
+    }
+
+    // 3. Highlight the cell using our new distinct blue helper class
+    const cellSelector = `.cell[data-r="${hint.row}"][data-c="${hint.col}"]`;
+    const targetCell = document.querySelector(cellSelector);
+    
+    if (targetCell) {
+        targetCell.classList.add('hint-highlight');
+        alert(`Logical Deduction: Cell at Row ${hint.row + 1}, Col ${hint.col + 1} ${hint.reason.toLowerCase()}.`);
+    }
+}
+*/
 
 // ==========================================
 // SITE SNIPPETS CONFIGURATION

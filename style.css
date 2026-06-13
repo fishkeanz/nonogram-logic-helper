@@ -197,3 +197,10 @@ table.nono-table td.cell.invalid {
     position: relative;
     z-index: 10;
 }
+
+/* Update your existing .hint-highlight to ensure it persists correctly */
+.nono-table td.cell.hint-highlight {
+    background-color: #e0e7ff !important; /* Soft Indigo */
+    border: 2px solid #6366f1 !important; 
+    z-index: 10;
+}
