@@ -90,8 +90,32 @@ function renderPerfectTable() {
     boardContainer.appendChild(table);
 }
 
-function validateBoard() { alert("Logic coming soon!"); }
-function getHint(type) { alert("Logic coming soon!"); }
+function validateBoard() {
+    // 1. Clean up marks
+    document.querySelectorAll('.cell.invalid').forEach(el => el.classList.remove('invalid'));
+
+    const status = NonogramEngine.validateBoard(currentData);
+    
+    if (status.isValid) {
+        alert("Board looks consistent so far!");
+        return;
+    }
+
+    // 2. Target the first invalid cell using your dataset
+    const firstError = status.invalidCells[0];
+    const cellSelector = `.cell[data-r="${firstError.row}"][data-c="${firstError.col}"]`;
+    const targetCell = document.querySelector(cellSelector);
+    
+    if (targetCell) {
+        targetCell.classList.add('invalid');
+        alert(`Conflict found at Row ${firstError.row + 1}, Col ${firstError.col + 1}.`);
+    }
+}
+
+function getHint() {
+    // For this implementation, getHint can mirror the single-cell alert cleanly
+    validateBoard();
+}
 
 // ==========================================
 // SITE SNIPPETS CONFIGURATION
