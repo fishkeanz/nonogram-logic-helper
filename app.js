@@ -152,7 +152,7 @@ function renderSnippetButtons() {
                     setTimeout(() => {
                         btn.innerHTML = '';
                         btn.appendChild(img);
-                        btn.appendChild(document.createTextNode(` Copy ${site.name} Snippet`));
+                        btn.appendChild(document.createTextNode(site.name));
                         btn.style.background = ''; // Revert style
                     }, 1500);
                 })
